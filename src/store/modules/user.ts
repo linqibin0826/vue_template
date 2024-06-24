@@ -41,6 +41,7 @@ export default defineStore('user', {
         avatar: ''
       }
     },
+    // 获取用户信息
     async fetchUserInfo() {
       const userInfo = await getUserInfo()
       if (userInfo.code === 200) {
@@ -63,4 +64,5 @@ export default defineStore('user', {
       return this.userInfo
     }
   },
+  persist: true
 })

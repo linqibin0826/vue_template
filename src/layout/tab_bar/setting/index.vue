@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { ArrowDown, Plus } from '@element-plus/icons-vue'
+import { ArrowDown } from '@element-plus/icons-vue'
 import useLayoutSettingStore from '@/store/modules/layoutSettings'
+import useUserStore from '@/store/modules/user'
+import { useRouter } from 'vue-router'
 
 defineOptions({
   name: 'Setting',
 })
 const layoutSettingStore = useLayoutSettingStore()
+const userStore = useUserStore()
+const $router = useRouter()
 // 切换全屏
 const handleFullScreen = () => {
   const el = document.documentElement
@@ -15,6 +19,12 @@ const handleFullScreen = () => {
     el.requestFullscreen()
   }
 }
+
+// 退出登录
+const handleLogout = () => {
+  userStore.userLogout()
+  $router.push('/login')
+}
 </script>
 
 <template>
@@ -22,17 +32,17 @@ const handleFullScreen = () => {
     <el-button icon="Refresh" circle @click="layoutSettingStore.toggleRefresh"></el-button>
     <el-button icon="FullScreen" circle @click="handleFullScreen"></el-button>
     <el-button icon="Setting" circle></el-button>
-    <img src="/public/logo.png" alt="avatar">
+    <img :src="userStore.getUserInfo.avatar" alt="avatar">
     <el-dropdown>
         <span class="el-dropdown-link">
-          Admin
+          {{ userStore.getUserInfo.username }}
           <el-icon class="el-icon--right">
             <ArrowDown />
           </el-icon>
         </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item :icon="Plus">退出登录</el-dropdown-item>
+          <el-dropdown-item @click="handleLogout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>

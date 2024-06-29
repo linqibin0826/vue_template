@@ -77,7 +77,7 @@ const login = async (formEl: FormInstance | undefined) => {
       <el-col :span="12" :xs="24">
         <el-form class="login_form" :model="loginUser" :rules="loginRules" ref="loginFormRef">
           <h1>Hello</h1>
-          <h2>欢迎来到硅谷甄选</h2>
+          <h2>欢迎来到XXXX</h2>
           <el-form-item prop="username">
             <el-input :prefix-icon="User" v-model="loginUser.username" placeholder="请输入用户名"></el-input>
           </el-form-item>

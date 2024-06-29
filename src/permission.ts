@@ -13,15 +13,15 @@ router.beforeEach(async (to, _from, next) => {
   document.title = to.meta.title as string
   const requiresAuth = to.meta.requiresAuth !== false
   const token = userStore.getToken
-  const userInfo = userStore.getUserInfo
+  const username = userStore.getUsername
   if (requiresAuth) {
-    if (token && userInfo.username) {
+    if (token && username) {
       if (to.path === '/login') {
         next({ path: '/' })
       } else {
         next()
       }
-    } else if (token && !userInfo.username) {
+    } else if (token && !username) {
       try {
         await userStore.fetchUserInfo()
         //放行

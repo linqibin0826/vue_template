@@ -11,10 +11,8 @@ export default defineStore('user', {
     return {
       token: tokenUtil.GET_TOKEN(),
       menuRoutes: constantRoutes,
-      userInfo: {
-        username: '',
-        avatar: ''
-      }
+      username: '',
+      avatar: '',
     }
   },
   actions: {
@@ -24,12 +22,12 @@ export default defineStore('user', {
       const result: loginResult = await login(data)
       // 如果code为200，表示登录成功
       if (result.code === 200) {
-        this.token = (result.data.token as string)
+        this.token = (result.data as string)
         // 将token存入localStorage
-        tokenUtil.SET_TOKEN(result.data.token as string)
+        tokenUtil.SET_TOKEN(result.data as string)
         return 'ok'
       } else {
-        return Promise.reject(new Error(result.data.message))
+        return Promise.reject(new Error(result.message))
       }
     },
     // 用户登出
@@ -40,10 +38,8 @@ export default defineStore('user', {
         // 2.销毁本地的token并请求userInfo
         tokenUtil.REMOVE_TOKEN()
         this.token = null
-        this.userInfo = {
-          username: '',
-          avatar: '',
-        }
+        this.username = ''
+        this.avatar = ''
         return 'ok'
       } else {
         return Promise.reject(new Error('登出失败'))
@@ -54,8 +50,8 @@ export default defineStore('user', {
     async fetchUserInfo() {
       const userInfo = await getUserInfo()
       if (userInfo.code === 200) {
-        this.userInfo.username = userInfo.data.checkUser.username
-        this.userInfo.avatar = userInfo.data.checkUser.avatar
+        this.username = userInfo.data.name
+        this.avatar = userInfo.data.avatar
         return 'ok'
       } else {
         return Promise.reject(new Error('获取用户信息失败'))
@@ -67,11 +63,8 @@ export default defineStore('user', {
     getToken(): string | null {
       return this.token
     },
-    getUserInfo(): {
-      username: string;
-      avatar: string;
-    } {
-      return this.userInfo
+    getUsername(): string {
+      return this.username
     }
   }
 })

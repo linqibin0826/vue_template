@@ -33,10 +33,10 @@ const handleLogout = async () => {
     <el-button icon="Refresh" circle @click="layoutSettingStore.toggleRefresh"></el-button>
     <el-button icon="FullScreen" circle @click="handleFullScreen"></el-button>
     <el-button icon="Setting" circle></el-button>
-    <img :src="userStore.getUserInfo.avatar" alt="avatar">
+    <img :src="userStore.avatar" alt="avatar">
     <el-dropdown>
         <span class="el-dropdown-link">
-          {{ userStore.getUserInfo.username }}
+          {{ userStore.username }}
           <el-icon class="el-icon--right">
             <ArrowDown />
           </el-icon>

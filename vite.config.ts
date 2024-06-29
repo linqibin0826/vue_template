@@ -8,6 +8,7 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 export default defineConfig(({ mode }) => {
   // 获取各个环境下的变量信息
   const env = loadEnv(mode, process.cwd())
+  console.log("============>" + env.VITE_APP_BASE_API, env.VITE_SERVE)
   return {
     plugins: [
       vue(),
@@ -29,15 +30,15 @@ export default defineConfig(({ mode }) => {
       },
     },
     // 代理解决跨域
-    // server: {
-    //   proxy: {
-    //     [env.VITE_APP_BASE_API]: {
-    //       target: env.VITE_SERVE,
-    //       changeOrigin: true,
-    //       rewrite: (path) => path.replace(/^\/api/, ''),
-    //     },
-    //   },
-    // },
+    server: {
+      proxy: {
+        [env.VITE_APP_BASE_API]: {
+          target: env.VITE_SERVE,
+          changeOrigin: true,
+          rewrite: (path) => path.replace('/test-api/', ''),
+        },
+      },
+    },
     // Scss 全局变量配置项(配上这个scss全局变量才能使用)
     css: {
       preprocessorOptions: {

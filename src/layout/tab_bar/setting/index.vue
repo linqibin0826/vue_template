@@ -2,7 +2,7 @@
 import { ArrowDown } from '@element-plus/icons-vue'
 import useLayoutSettingStore from '@/store/modules/layoutSettings'
 import useUserStore from '@/store/modules/user'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 defineOptions({
   name: 'Setting',
@@ -10,6 +10,7 @@ defineOptions({
 const layoutSettingStore = useLayoutSettingStore()
 const userStore = useUserStore()
 const $router = useRouter()
+const $route = useRoute()
 // 切换全屏
 const handleFullScreen = () => {
   const el = document.documentElement
@@ -21,9 +22,9 @@ const handleFullScreen = () => {
 }
 
 // 退出登录
-const handleLogout = () => {
-  userStore.userLogout()
-  $router.push('/login')
+const handleLogout = async () => {
+  await userStore.userLogout()
+  await $router.push({ path: '/login', query: { redirect: $route.path } })
 }
 </script>
 

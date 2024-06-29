@@ -15,7 +15,9 @@ app.use(ElementPlus, {
 })
 // 安装自定义插件，注册全局组件
 app.use(globalComponents)
-app.use(router)
 app.use(pinia)
+app.use(router)
+//引入路由鉴权文件
+import '@/permission.ts'
 
 app.mount('#app')

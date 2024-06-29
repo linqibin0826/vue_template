@@ -7,6 +7,7 @@ export const constantRoutes = [
       title: '登录',
       hidden: true,
       icon: 'House',
+      requiresAuth: false, // 添加该字段，表示进入这个路由是不需要登录的
     },
   },
   {

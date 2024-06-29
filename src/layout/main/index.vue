@@ -8,6 +8,7 @@ watch(
   () => layoutSettingStore.getRefresh,
   async () => {
     refreshFlag.value = false
+    // 等待下一次 DOM 更新
     await nextTick(() => {
       // 重新渲染组件
       refreshFlag.value = true

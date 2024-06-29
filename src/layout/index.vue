@@ -87,7 +87,6 @@ const $route = useRoute()
     height: calc(100vh - $base-tab-bar-height);
     left: $base-menu-width;
     top: $base-tab-bar-height;
-    background-color: green;
     padding: 20px;
     overflow: auto;
     transition: all 0.3s;

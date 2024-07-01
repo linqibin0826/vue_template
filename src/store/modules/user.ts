@@ -1,10 +1,11 @@
 // 创建用户相关的小仓库
 import { defineStore } from 'pinia'
-import { loginBody, loginResult } from '@/api/user/type.ts'
+import { loginBody } from '@/api/user/type.ts'
 import { getUserInfo, login, logout } from '@/api/user/index.ts'
 import { UserState } from '@/store/modules/types/type.ts'
 import * as tokenUtil from '@/utils/tokenUtil.ts'
 import { constantRoutes } from '@/router/router.ts'
+import { BaseResponse } from '@/api/common/type.ts'
 
 export default defineStore('user', {
   state: (): UserState => {
@@ -19,12 +20,12 @@ export default defineStore('user', {
     // 异步返回的promise
     // 用户登录
     async userLogin(data: loginBody) {
-      const result: loginResult = await login(data)
+      const result: BaseResponse<string> = await login(data)
       // 如果code为200，表示登录成功
       if (result.code === 200) {
-        this.token = (result.data as string)
+        this.token = result.data
         // 将token存入localStorage
-        tokenUtil.SET_TOKEN(result.data as string)
+        tokenUtil.SET_TOKEN(result.data)
         return 'ok'
       } else {
         return Promise.reject(new Error(result.message))

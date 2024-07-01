@@ -8,7 +8,6 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 export default defineConfig(({ mode }) => {
   // 获取各个环境下的变量信息
   const env = loadEnv(mode, process.cwd())
-  console.log("============>" + env.VITE_APP_BASE_API, env.VITE_SERVE)
   return {
     plugins: [
       vue(),
@@ -32,6 +31,12 @@ export default defineConfig(({ mode }) => {
     // 代理解决跨域
     server: {
       proxy: {
+        // 有两个地址，只好这样做了
+        '/admin/': {
+          target: 'http://139.198.104.58:8209',
+          changeOrigin: true,
+          // rewrite: (path) => path.replace('/test-api/', ''),
+        },
         [env.VITE_APP_BASE_API]: {
           target: env.VITE_SERVE,
           changeOrigin: true,

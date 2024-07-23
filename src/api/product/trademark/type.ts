@@ -7,8 +7,6 @@ export interface TrademarkPageParams extends PageParams {
 
 }
 
-
-
 /**
  * @description: 品牌分页响应数据
  */
@@ -31,4 +29,13 @@ export interface Trademark {
   tmName: string
   createTime: string
   updateTime: string
+}
+
+/**
+ * @description: 品牌详情
+ */
+export interface TrademarkDetail {
+  id?: number
+  logoUrl: string
+  tmName: string
 }
